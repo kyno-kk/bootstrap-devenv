@@ -1,0 +1,81 @@
+simplified_ui false
+default_layout "compact"
+theme "catppuccin-mocha"
+
+// Zellij 立ち上げ時に通常のターミナルとして扱えるようにする
+default_mode "Locked"
+
+// load_plugins {
+//  https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm
+// }
+
+// https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjframes.wasm
+
+ui {
+  pane_frames {
+    rounded_corners true
+    hide_session_name false
+  }
+}
+
+keybinds {
+    normal {
+        // Ctrl+gでロックモードに切り替え、通常のターミナル操作に戻る
+        bind "Ctrl g" { SwitchToMode "Locked"; }
+        
+        // 各種モードへの切り替え
+        bind "p" { SwitchToMode "Pane"; }   // ペイン操作モード
+        bind "t" { SwitchToMode "Tab"; }    // タブ操作モード
+        bind "s" { SwitchToMode "Scroll"; } // スクロールモード
+        bind "o" { SwitchToMode "Session"; } // セッション操作モード
+        bind "n" { SwitchToMode "Resize"; } // リサイズモード
+    }
+    
+    // ペイン操作モード
+    pane {
+	bind "Enter" { SwitchToMode "Locked"; }
+        bind "h" "Left" { MoveFocus "Left"; }
+        bind "l" "Right" { MoveFocus "Right"; }
+        bind "j" "Down" { MoveFocus "Down"; }
+        bind "k" "Up" { MoveFocus "Up"; }
+        
+        // 新しいペインを作成
+        bind "d" { NewPane "Down"; SwitchToMode "Locked"; }
+        bind "r" { NewPane "Right"; SwitchToMode "Locked"; }
+        
+        // フルスクリーン切替
+        bind "f" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
+        
+        // ペインの枠を表示/非表示
+        bind "z" { TogglePaneFrames; SwitchToMode "Locked"; }
+    }
+    
+    // タブ操作モード
+    tab {
+        // タブ間の移動
+        bind "h" "Left" { GoToPreviousTab; }
+        bind "l" "Right" { GoToNextTab; }
+        
+        // 数字キーで特定のタブに直接ジャンプ
+        bind "1" { GoToTab 1; SwitchToMode "Locked"; }
+        bind "2" { GoToTab 2; SwitchToMode "Locked"; }
+        // ...
+    }
+    
+    // スクロールモード - ターミナル出力の閲覧
+    scroll {
+        // Vimライクなスクロール
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+        
+        // 検索機能
+        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    }
+}
+
+
+show_startup_tips false
+show_release_notes false
+

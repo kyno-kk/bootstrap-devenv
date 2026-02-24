@@ -1,0 +1,15 @@
+- name: oathtool インストール
+  ansible.builtin.apt:
+    name: oathtool
+    state: present
+    update_cache: true
+  become: true
+
+- name: oathtool バージョン確認
+  ansible.builtin.command: oathtool --version
+  register: oathtool_version
+  changed_when: false
+
+- name: oathtool インストール完了
+  ansible.builtin.debug:
+    msg: "{{ oathtool_version.stdout_lines[0] }}"

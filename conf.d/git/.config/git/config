@@ -1,0 +1,15 @@
+[include]
+	path = ~/.config/git/delta/themes/catppuccin.gitconfig
+
+[color]
+	ui = true
+
+[push]
+	default = current
+
+[ghq]
+	root = ~/projects
+
+[init]
+    defaultBranch = main
+

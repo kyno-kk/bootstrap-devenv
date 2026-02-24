@@ -1,0 +1,15 @@
+- name: stow をインストール
+  ansible.builtin.apt:
+    name: stow
+    state: present
+    update_cache: true
+  become: true
+
+- name: stow バージョン確認
+  ansible.builtin.command: stow --version
+  register: stow_version
+  changed_when: false
+
+- name: stow インストール確認表示
+  ansible.builtin.debug:
+    msg: "{{ stow_version.stdout_lines[0] }}"

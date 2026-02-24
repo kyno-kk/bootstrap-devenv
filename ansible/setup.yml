@@ -1,0 +1,15 @@
+---
+- name: Dev setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  roles:
+    - local_config
+    - stow
+    - gpg
+    - git
+    - pass
+    - oathtool
+    - mise
+

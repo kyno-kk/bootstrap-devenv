@@ -1,0 +1,45 @@
+- name: GPG パッケージインストール
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - pinentry-curses
+    state: present
+    update_cache: true
+  become: true
+
+- name: GPG 秘密鍵存在確認
+  ansible.builtin.command: >
+    gpg --list-secret-keys --with-colons "{{ user_email }}"
+  register: gpg_secret_check
+  failed_when: false
+  changed_when: false
+
+- name: GPG 鍵生成
+  ansible.builtin.command: >
+    gpg --batch --passphrase '' --quick-gen-key
+    "{{ user_name }} <{{ user_email }}>"
+    rsa4096 sign 1y
+  when: gpg_secret_check.rc != 0
+
+- name: GPG 鍵一覧取得
+  ansible.builtin.command: >
+    gpg --list-secret-keys --with-colons "{{ user_email }}"
+  register: gpg_list
+  changed_when: false
+
+# fpr 行は複数出る可能性がある
+# 最初の fpr を採用
+- name: fingerprint 抽出
+  ansible.builtin.set_fact:
+    gpg_fingerprint: >-
+      {{
+        (
+          gpg_list.stdout_lines
+          | select('match','^fpr')
+          | list
+        )[0].split(':')[9]
+      }}
+
+- name: GPG セットアップ完了
+  ansible.builtin.debug:
+    msg: "GPG fingerprint: {{ gpg_fingerprint }}"

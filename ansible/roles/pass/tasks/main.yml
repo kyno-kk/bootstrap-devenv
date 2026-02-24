@@ -1,0 +1,39 @@
+- name: pass インストール
+  ansible.builtin.apt:
+    name: pass
+    state: present
+    update_cache: true
+  become: true
+
+- name: password-store 存在確認
+  ansible.builtin.stat:
+    path: "{{ lookup('env','HOME') }}/.password-store"
+  register: pass_store
+
+- name: fingerprint 取得
+  ansible.builtin.command: >
+    gpg --list-secret-keys --with-colons "{{ user_email }}"
+  register: gpg_list
+  changed_when: false
+
+- name: fingerprint 抽出
+  ansible.builtin.set_fact:
+    gpg_fingerprint: >-
+      {{
+        (
+          gpg_list.stdout_lines
+          | select('match','^fpr:')
+          | list
+          | first
+          | default('')
+        ).split(':')[-2] if
+        (gpg_list.stdout_lines
+          | select('match','^fpr:')
+          | list | length) > 0
+        else ''
+      }}
+
+- name: pass 初期化
+  ansible.builtin.command: pass init "{{ gpg_fingerprint }}"
+  when: not pass_store.stat.exists
+

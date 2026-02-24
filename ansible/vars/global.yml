@@ -1,0 +1,4 @@
+
+# GPG
+gpg_key_type: "ed25519"
+gpg_key_expire: "10y"

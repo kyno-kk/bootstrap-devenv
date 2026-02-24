@@ -1,0 +1,22 @@
+# バージョン固定しているけど、mise は固定じゃなくてもよいかもしれない
+#
+- name: mise バージョン確認
+  ansible.builtin.command: mise --version
+  register: mise_current
+  failed_when: false
+  changed_when: false
+
+- name: mise バイナリをダウンロード
+  ansible.builtin.get_url:
+    url: "https://github.com/jdx/mise/releases/download/v{{ mise_version }}/mise-v{{ mise_version }}-{{ mise_arch }}"
+    dest: /usr/local/bin/mise
+    mode: '0755'
+    checksum: "{{ mise_checksum }}"
+  become: true
+  when: mise_current.stdout is not search(mise_version)
+
+- name: mise 初期化を bashrc に追加
+  ansible.builtin.lineinfile:
+    path: "{{ lookup('env','HOME') }}/.bashrc"
+    line: 'eval "$(mise activate bash)"'
+    state: present

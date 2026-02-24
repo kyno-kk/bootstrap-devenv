@@ -1,0 +1,28 @@
+[tools]
+starship = "latest"
+bat = "latest"
+eza = "latest"
+rg = "latest"
+fzf = "latest"
+fd = "latest"
+yazi = "latest"
+zoxide = "latest"
+
+tmux = "latest"
+neovim = "latest"
+
+github-cli = "latest"
+lazygit = "latest"
+jq = "latest"
+zellij = "latest"
+
+[shell_alias]
+ls = "eza"
+cat = "bat"
+grep = "rg"
+y = "yazi"
+z = "zoxide"
+lg = "lazygit"
+catp = "bat --plain"
+vi = "nvim"
+

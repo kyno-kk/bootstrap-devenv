@@ -1,0 +1,52 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """$directory\
+$git_branch\
+$git_status\
+$git_metrics\
+$fill\
+$cmd_duration\
+$time
+$character
+"""
+
+# right_format = """$time"""
+
+[time]
+disabled = false
+format = " [$time]($style) "
+time_format = '%T'
+utc_time_offset = '+9'
+
+[cmd_duration]
+min_time = 1
+format = ' [$duration](bold yellow) /'
+
+[directory]
+truncation_length = 5
+truncate_to_repo = false
+truncation_symbol = "…/"
+style = "white"
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+style = "purple"
+
+[git_status]
+style = "purple"
+
+[git_metrics]
+disabled = false
+added_style = "green"
+deleted_style = "red"
+
+[fill]
+symbol = '─'
+style = 'fg:#89b4fa) bg:none'
+
+[character]
+success_symbol = '[→](bold green)'
+

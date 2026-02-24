@@ -1,0 +1,25 @@
+[mgr]
+ratio = [ 0, 1, 2]
+show_hidden = true
+show_symlink = true
+linemode = "size_and_mtime"
+
+[preview]
+wrap = "yes"
+tab_size = 2
+
+[opener]
+edit = [
+  { run = '''
+$SHELL -lic '
+editor="${EDITOR:-vi}"
+
+if [ -n "$TMUX" ]; then
+  tmux display-popup -xC -yC -w85% -h85% -E "$editor \"\$@\""
+else
+  exec "$editor" "$@"
+fi
+' sh "$@"
+''', block = true }
+]
+
