@@ -40,4 +40,4 @@ if mise use -g neovim; then
   write_once 'export VISUAL=nvim' "$HOME/.bashrc"
 fi
 
-
+mise install
