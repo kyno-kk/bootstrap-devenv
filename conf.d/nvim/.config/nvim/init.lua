@@ -1,2 +1,5 @@
+vim.loader.enable()
+
 require("config.lazy")
-require("config.catppuccin")
+require("config.init")
+

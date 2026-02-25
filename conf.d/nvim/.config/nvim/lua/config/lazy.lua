@@ -26,5 +26,29 @@ require("lazy").setup({
     { import = "plugins.catppuccin" },
     { import = "plugins.notification" },
   },
+  defaults = { lazy = true },
+  install = { missing = true, colorscheme = { "catppuccin" } },
+  checker = { enabled = false },
+  concurrency = 64,
+  performance = {
+    cache = {
+      enabled = true,
+    },
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "netrw",
+        "tarPlugin",
+        "tar",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+        "zip",
+      },
+    },
+  },
 })
 
