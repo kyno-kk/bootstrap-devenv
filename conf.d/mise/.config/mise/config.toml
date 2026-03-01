@@ -8,13 +8,17 @@ fd = "latest"
 yazi = "latest"
 zoxide = "latest"
 
-tmux = "latest"
 neovim = "latest"
 
 github-cli = "latest"
 lazygit = "latest"
 jq = "latest"
 zellij = "latest"
+codex = "latest"
+ast-grep = "latest"
+tree-sitter = "latest"
+node = "24"
+npm = "11"
 
 [shell_alias]
 ls = "eza"
@@ -25,4 +29,3 @@ z = "zoxide"
 lg = "lazygit"
 catp = "bat --plain"
 vi = "nvim"
-
