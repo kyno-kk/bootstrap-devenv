@@ -1,0 +1,8 @@
+- name: Install misc tools
+  ansible.builtin.apt:
+    name:
+      - unzip
+      - curl
+    state: present
+    update_cache: true
+  become: true
