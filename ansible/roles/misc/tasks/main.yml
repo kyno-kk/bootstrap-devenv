@@ -3,6 +3,19 @@
     name:
       - unzip
       - curl
+      - wslu
     state: present
     update_cache: true
+  become: true
+
+- name: wslu でブラウザを開けるように bashrc に追加
+  ansible.builtin.lineinfile:
+    path: "{{ lookup('env','HOME') }}/.bashrc"
+    line: "export BROWSER=/usr/bin/wslview"
+    state: present
+
+- name: XDG を使うケースに対応するための設定
+  ansible.builtin.command: update-alternative --install /usr/bin/xdg-open xdg-open /usr/bin/wslview 200
+  failed_when: false
+  changed_when: false
   become: true
