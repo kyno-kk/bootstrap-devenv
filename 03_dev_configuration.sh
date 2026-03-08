@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-. $HOME/.local/share/my-scripts/common.sh
+. "${HOME}/.local/share/my-scripts/common.sh"
 
-write_once ". $HOME/.local/share/my-scripts/common.sh" "$HOME/.bashrc"
+write_once '. $HOME/.local/share/my-scripts/common.sh' "$HOME/.bashrc"
 
 if mise use -g starship; then
   write_once 'eval "$(starship init bash)"' "$HOME/.bashrc"
@@ -24,20 +23,21 @@ if mise use -g zoxide; then
 fi
 
 if mise use -g yazi; then
-  write_once ". $HOME/.local/share/my-scripts/yazi/init.sh" "$HOME/.bashrc"
+  write_once '. $HOME/.local/share/my-scripts/yazi/init.sh' "$HOME/.bashrc"
 fi
 
 if mise use -g zellij; then
   write_once 'eval "$(zellij setup --generate-auto-start bash)"' "$HOME/.bashrc"
-
-  # Download zjstatus, zjframe
-  curl -LO
 fi
 
 if mise use -g neovim; then
   # alias では非ログインシェルで neovim を使えないので、環境変数で明示する
   write_once 'export EDITOR=nvim' "$HOME/.bashrc"
   write_once 'export VISUAL=nvim' "$HOME/.bashrc"
+fi
+
+if mise use -g github-cli; then
+  gh extension install dlvhdr/gh-dash
 fi
 
 mise install
