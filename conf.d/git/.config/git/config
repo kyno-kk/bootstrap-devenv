@@ -1,15 +1,7 @@
-[include]
-	path = ~/.config/git/delta/themes/catppuccin.gitconfig
-
-[color]
-	ui = true
-
-[push]
-	default = current
-
-[ghq]
-	root = ~/projects
-
 [init]
-    defaultBranch = main
+	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
+[merge]
+	conflictStyle = zdiff3
 

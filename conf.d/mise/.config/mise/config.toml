@@ -19,6 +19,8 @@ ast-grep = "latest"
 tree-sitter = "latest"
 node = "24"
 npm = "11"
+"aqua:dlvhdr/diffnav" = "latest"
+delta = "latest"
 
 [shell_alias]
 ls = "eza"
